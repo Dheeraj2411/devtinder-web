@@ -23,6 +23,7 @@
 - Refactor the code add constants file and create components folder 
 - Not be access to ther routes without login
 - if token is not present ,redirect to login page
+- Logout Feature
 Bdoy
 Navbar
 Route=/ =>Feed
