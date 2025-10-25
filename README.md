@@ -14,6 +14,13 @@
 - npm i axios
 - CORS - npm i cors in backend => add middleware to configurations:origin,credentials
 - Making API call Axios => withcredentials:true
+- Install redux and setup redux store
+  - npm install @reduxjs/toolkit
+  - npm install react-redux
+- Add Redux DevTolls in chrome
+- Lohin and the see the data coming properly in store
+- Navbar should Upadte as soon as user logs in
+- Refactor the code add constants file and create components folder 
 
 Bdoy
 Navbar
