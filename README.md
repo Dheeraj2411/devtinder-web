@@ -21,7 +21,8 @@
 - Lohin and the see the data coming properly in store
 - Navbar should Upadte as soon as user logs in
 - Refactor the code add constants file and create components folder 
-
+- Not be access to ther routes without login
+- if token is not present ,redirect to login page
 Bdoy
 Navbar
 Route=/ =>Feed
