@@ -1,12 +1,12 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 
-import Body from "./Body";
-import Login from "./Login";
-import Profile from "./Profile";
 import { store } from "./utils/appStore";
 import { Provider } from "react-redux";
-import Feed from "./Feed";
+import Feed from "./components/Feed";
+import Body from "./components/Body";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 
 function App() {
   return (
