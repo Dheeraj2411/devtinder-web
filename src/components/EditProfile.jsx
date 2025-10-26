@@ -6,16 +6,12 @@ import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
 
 const EditProfile = () => {
-  const [firstName, setFirstName] = useState("Mark");
-  const [lastName, setLastName] = useState("Zukerberg");
-  const [photoURL, setPhotoURL] = useState(
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d0/Mark_Zuckerberg_%282025%29_%28cropped%29.jpg/500px-Mark_Zuckerberg_%282025%29_%28cropped%29.jpg"
-  );
-  const [age, setAge] = useState("41");
-  const [gender, setGender] = useState("male");
-  const [about, setAbout] = useState(
-    "founder of facebook and chariman of META"
-  );
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [photoURL, setPhotoURL] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [about, setAbout] = useState("");
   const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");

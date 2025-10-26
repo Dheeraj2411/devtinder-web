@@ -101,6 +101,9 @@ const NavBar = () => {
                     <Link to="/settings">Settings</Link>
                   </li>
                   <li>
+                    <Link to="/request">Request</Link>
+                  </li>
+                  <li>
                     <button onClick={handleLogout} className="w-full text-left">
                       Logout
                     </button>

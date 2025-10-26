@@ -22,7 +22,8 @@ const Connections = () => {
   useEffect(() => {
     fetchConnection();
   }, []); // run once on mount
-
+  if (!connections) return;
+  if(connections.length===0)return <h1>No Connection Found</h1>
   return (
     <div className="pt-4 pb-8 bg-base-200 min-h-[calc(100vh-64px)]">
       <div className="max-w-6xl mx-auto px-4">
