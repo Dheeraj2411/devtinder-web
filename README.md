@@ -24,7 +24,15 @@
 - Not be access to ther routes without login
 - if token is not present ,redirect to login page
 - Logout Feature
-Bdoy
+- Get the feed and add the feed in store
+- Build the user card on feed
+- Edit profile feature
+- Show Toast message on save of profile
+- connection Request >>>> see all my Connections
+
+
+
+
 Navbar
 Route=/ =>Feed
 Route=/login=>Login
