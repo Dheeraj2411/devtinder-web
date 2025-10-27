@@ -3,7 +3,7 @@ import EditProfile from './EditProfile'
 
 const SignUp = () => {
   return (
-    <div><EditProfile/></div>
+    <div></div>
     
   )
 }

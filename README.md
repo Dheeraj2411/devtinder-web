@@ -20,7 +20,7 @@
 - Add Redux DevTolls in chrome
 - Lohin and the see the data coming properly in store
 - Navbar should Upadte as soon as user logs in
-- Refactor the code add constants file and create components folder 
+- Refactor the code add constants file and create components folder
 - Not be access to ther routes without login
 - if token is not present ,redirect to login page
 - Logout Feature
@@ -28,10 +28,12 @@
 - Build the user card on feed
 - Edit profile feature
 - Show Toast message on save of profile
-- connection Request >>>> see all my Connections
-
-
-
+- New page - see all my Connections
+- New page - see all my Connections Request
+- Feature -Accepted Rejected Connection Request
+- Send/Ignore the user from the feed
+- SignUp New User
+- E2E Testing
 
 Navbar
 Route=/ =>Feed

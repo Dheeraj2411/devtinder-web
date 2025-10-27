@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { removeUser } from "../utils/userSlice";
@@ -8,8 +8,6 @@ const NavBar = () => {
   const user = useSelector((store) => store.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [open, setOpen] = useState(false);
-
   const handleLogout = async () => {
     try {
       await axios.post(
@@ -28,37 +26,10 @@ const NavBar = () => {
     <header className="sticky top-0 z-50 bg-base-100/95 backdrop-blur-sm shadow-sm border-none">
       <div className="navbar max-w-6xl mx-auto px-4 border-none">
         <div className="flex-1 flex items-center">
-          <button
-            className="btn btn-ghost lg:hidden mr-2"
-            aria-label="Toggle menu"
-            onClick={() => setOpen((v) => !v)}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d={open ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-              />
-            </svg>
-          </button>
-
           <Link to="/" className="btn btn-ghost text-xl normal-case">
             📱DevTinder
           </Link>
         </div>
-
-        <nav className="hidden lg:flex lg:items-center lg:gap-3">
-          <Link to="/discover" className="btn btn-ghost btn-sm">
-            Discover
-          </Link>
-        </nav>
 
         <div className="flex items-center gap-2">
           {!user && (
@@ -66,22 +37,19 @@ const NavBar = () => {
               <Link to="/login" className="btn btn-sm">
                 Sign in
               </Link>
-              <Link to="/signup" className="btn btn-primary btn-sm">
-                Sign up
-              </Link>
             </div>
           )}
 
           {user && (
             <>
               <div className="hidden sm:block text-s">
-                 <span className="font-semibold">{user.firstName}</span>
+                <span className="font-semibold">{user.firstName}</span>
               </div>
 
               <div className="dropdown dropdown-end">
                 <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                   <div className="w-10 rounded-full">
-                    <img alt="UserPhoto" src={user.photoURL} />
+                    <img alt={ "UserPhoto"} src={user.photoURL} />
                   </div>
                 </label>
 
@@ -115,32 +83,13 @@ const NavBar = () => {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={`lg:hidden transition-max-h duration-200 overflow-hidden ${
           open ? "max-h-96" : "max-h-0"
         }`}
       >
         <div className="p-3 border-t bg-base-100">
           <ul className="flex flex-col gap-2">
-            <li>
-              <Link
-                to="/discover"
-                className="block w-full"
-                onClick={() => setOpen(false)}
-              >
-                Discover
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/jobs"
-                className="block w-full"
-                onClick={() => setOpen(false)}
-              >
-                Jobs
-              </Link>
-            </li>
-
             {user ? (
               <>
                 <li className="pt-2 border-t">
@@ -211,7 +160,7 @@ const NavBar = () => {
             )}
           </ul>
         </div>
-      </div>
+      </div> */}
     </header>
   );
 };

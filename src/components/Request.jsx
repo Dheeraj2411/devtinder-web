@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addRequest } from "../utils/requestSlice";
 
 const Request = () => {
-  const request = useSelector((store) => store.request);
+  const requests = useSelector((store) => store.request);
   const dispatch = useDispatch();
 
   const fetchRequests = async () => {
@@ -14,7 +14,9 @@ const Request = () => {
         withCredentials: true,
       });
       // adapt if API returns requests under res.data.data or res.data.requests
-      dispatch(addRequest(res?.data?.data));
+      dispatch(
+        addRequest(res?.data?.data ?? res?.data?.requests ?? res?.data ?? [])
+      );
     } catch (err) {
       console.error("fetchRequests error:", err);
     }
@@ -23,13 +25,13 @@ const Request = () => {
   const reviewRequest = async (status, _id) => {
     try {
       // ensure URL format: /request/review/:status/:id
-      const res = await axios.post(
+      await axios.post(
         `${BASE_URL}/request/review/${status}/${_id}`,
         {},
         { withCredentials: true }
       );
-      // update store with new payload (API response)
-      dispatch(addRequest(res?.data.data ?? res?.data));
+      // re-fetch the list so the store keeps the same shape and UI stays in sync
+      await fetchRequests();
     } catch (err) {
       console.error("reviewRequest error:", err);
     }
@@ -37,10 +39,12 @@ const Request = () => {
 
   useEffect(() => {
     fetchRequests();
-  }, []); // run once on mount
+  }, [ requests]); // run once on mount
 
-  if (!request) return null;
-  if ( request.length === 0)
+
+
+  if (requests == null) return ;
+  if (requests.length === 0)
     return <h1 className="p-8 text-center">No Request Found</h1>;
 
   return (
@@ -51,8 +55,15 @@ const Request = () => {
             Connection Requests
           </li>
 
-          {request.map((r) => {
-            const { firstName, lastName, about, photoURL } = r.fromUserId;
+          {requests.map((r) => {
+            // guard against missing nested user object
+            const from = r?.fromUserId ?? r?.fromUser ?? {};
+            const {
+              firstName = "Unknown",
+              lastName = "",
+              about = "",
+              photoURL = "",
+            } = from;
             return (
               <li
                 key={r._id ?? `${firstName}-${lastName}`}

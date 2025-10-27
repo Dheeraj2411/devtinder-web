@@ -15,7 +15,7 @@ const Feed = () => {
       const res = await axios.get(BASE_URL + "/user/feed", {
         withCredentials: true,
       });
-  console.log(res)
+
       dispatch(addFeed(res.data));
     } catch (err) {
       console.error(err);
@@ -25,7 +25,8 @@ const Feed = () => {
   useEffect(() => {
     feedHandler();
   }, []);
-
+  if (!feed) return;
+  if (feed.length <= 0) return <h1 className="p-8 text-center text-2xl">No more users found</h1>
   return (
     feed && (
       <div className="flex justify-center my-8">

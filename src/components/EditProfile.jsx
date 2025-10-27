@@ -23,17 +23,31 @@ const EditProfile = () => {
         { firstName, lastName, photoURL, age, gender, about },
         { withCredentials: true }
       );
-      dispatch(addUser(res?.data?.data));
+
+      console.log("Profile update response:", res.data);
+
+      // Adjust depending on backend response
+      const updatedUser = res.data.user || res.data;
+      dispatch(addUser(updatedUser));
+
+      setError("");
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     } catch (err) {
-      console.error(err?.response ?? err);
-      setError(err?.response?.data?.message ?? "Failed to save profile");
+      console.error("Profile update error:", err.response || err);
+
+      const message =
+        err?.response?.data?.message ||
+        (typeof err?.response?.data === "string"
+          ? err.response.data
+          : "Failed to save profile");
+
+      setError(message);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 3000);
     }
   };
-
+console.log(error)
   useEffect(() => {
     // placeholder if you want to fetch initial profile on mount
   }, []);
