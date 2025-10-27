@@ -67,4 +67,5 @@
 - “Run `npm run dev` to test locally; `npm run lint` before PR.”
 
 ---
+
 If any section is unclear or you'd like me to include example snippets for a specific change (e.g., adding a slice or a route), tell me which area and I'll expand or iterate.
