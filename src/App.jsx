@@ -8,7 +8,7 @@ import Body from "./components/Body";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Connections from "./components/Connections";
-import SignUp from "./components/SignUp";
+
 import Request from "./components/Request";
 
 function App() {
@@ -23,7 +23,6 @@ function App() {
               <Route path="/profile" element={<Profile />} />
               <Route path="/connections" element={<Connections />} />
               <Route path="/request" element={<Request />} />
-              <Route path="/signup" element={<SignUp />} />
             </Route>
           </Routes>
         </BrowserRouter>

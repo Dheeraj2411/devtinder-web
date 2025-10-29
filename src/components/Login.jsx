@@ -10,39 +10,58 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [isLogin, setIsLogin] = useState(true); // true = Login, false = Sign Up
-
+  const [isLogin, setIsLogin] = useState(true);
   const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ NEW STATE
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // ✅ Helper function to extract safe error messages
+  const extractErrorMessage = (err, fallback) => {
+    return (
+      err?.response?.data?.message ||
+      (typeof err?.response?.data === "string" ? err.response.data : null) ||
+      err?.message ||
+      fallback
+    );
+  };
+
   const handleLogin = async () => {
+    setErr("");
+    setLoading(true); // start loading
     try {
       const res = await axios.post(
-        BASE_URL + "/login",
+        `${BASE_URL}/login`,
         { email, password },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
       navigate("/");
     } catch (err) {
-      setErr(err?.response?.data || "Something went wrong");
-      console.error(err);
+      console.error("Login error:", err);
+      setErr(extractErrorMessage(err, "Login failed. Please try again."));
+    } finally {
+      setLoading(false); // stop loading
     }
   };
 
   const handleSignUp = async () => {
+    setErr("");
+    setLoading(true);
     try {
       const res = await axios.post(
-        BASE_URL + "/signup",
+        `${BASE_URL}/signup`,
         { firstName, lastName, email, password },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data));
+      dispatch(addUser(res.data.data));
       navigate("/profile");
     } catch (err) {
-      setErr(err?.response?.data || "Something went wrong");
-      console.error(err);
+      console.error("Signup error:", err);
+      setErr(extractErrorMessage(err, "Signup failed. Please try again."));
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -54,6 +73,7 @@ const Login = () => {
             {isLogin ? "Login" : "Sign Up"}
           </h2>
 
+          {/* --- Sign Up extra fields --- */}
           {!isLogin && (
             <>
               <fieldset className="fieldset">
@@ -64,6 +84,7 @@ const Login = () => {
                   onChange={(e) => setFirstName(e.target.value)}
                   className="input input-bordered w-full"
                   placeholder="First Name"
+                  disabled={loading}
                 />
               </fieldset>
               <fieldset className="fieldset">
@@ -74,11 +95,13 @@ const Login = () => {
                   onChange={(e) => setLastName(e.target.value)}
                   className="input input-bordered w-full"
                   placeholder="Last Name"
+                  disabled={loading}
                 />
               </fieldset>
             </>
           )}
 
+          {/* --- Common Fields --- */}
           <fieldset className="fieldset">
             <legend className="fieldset-legend">Email ID</legend>
             <input
@@ -87,6 +110,7 @@ const Login = () => {
               onChange={(e) => setEmail(e.target.value)}
               className="input input-bordered w-full"
               placeholder="Email"
+              disabled={loading}
             />
           </fieldset>
 
@@ -98,23 +122,42 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               className="input input-bordered w-full"
               placeholder="Password"
+              disabled={loading}
             />
           </fieldset>
 
-          {err && <p className="text-red-500 text-sm">{err}</p>}
+          {/* --- Error Message --- */}
+          {err && <p className="text-red-500 text-sm">{String(err)}</p>}
 
+          {/* --- Action Button --- */}
           <div className="card-actions justify-center">
             <button
-              className="btn btn-primary w-full"
+              className={`btn btn-primary w-full ${
+                loading ? "opacity-70" : ""
+              }`}
               onClick={isLogin ? handleLogin : handleSignUp}
+              disabled={loading}
             >
-              {isLogin ? "Login" : "Sign Up"}
+              {loading && (
+                <span className="loading loading-spinner loading-sm"></span>
+              )}
+
+              {loading
+                ? isLogin
+                  ? "Logging in..."
+                  : "Creating account..."
+                : isLogin
+                ? "Login"
+                : "Sign Up"}
             </button>
           </div>
 
+          {/* --- Toggle Login/Signup --- */}
           <p
-            onClick={() => setIsLogin((v) => !v)}
-            className="text-center underline cursor-pointer text-sm"
+            onClick={() => !loading && setIsLogin((v) => !v)}
+            className={`text-center underline cursor-pointer text-sm ${
+              loading ? "opacity-50 pointer-events-none" : ""
+            }`}
           >
             {isLogin
               ? "Don't have an account? Sign Up"
