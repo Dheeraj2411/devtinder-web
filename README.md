@@ -67,14 +67,15 @@ Router=/profile =>Profile
   - sudo systemctl start nginx
   - sudo systemctl enable nginx
   - Copy code from dist -->devtinder-web--> /var/www/html/
-  - For copy dist folder --> sudo scp -r dist/* /var/www/html/
-  - Enablr port 80 of instance
+  - For copy dist folder --> sudo scp -r dist/\* /var/www/html/
+  - Enable port 80 of instance
 - Backend
-   - Upadte password
-   - allowed ec2 instance public IP  on mongoDB server
-   - Installed npm install pm2 -g
-   - pm2 start npm -- start
-   - pm2 logs
-   - pm2 flush <name of the processed>
-   - pm2 stop <name of the processed>
-   - pm2 delete <name of the processed>
+  - Upadte password
+  - allowed ec2 instance public IP on mongoDB server
+  - Installed npm install pm2 -g
+  - pm2 start npm -- start
+  - pm2 list,pm2 flush <name >, pm2 stop <name >,pm2 delete <name>
+  - pm2 logs
+  - config nginx -/etc/nginx/sites-available/default
+  - restart nginx - sudo systemctl restart nginx
+  - Modify the BASEURL in frontend project to "/api

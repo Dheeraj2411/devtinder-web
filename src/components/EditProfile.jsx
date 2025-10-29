@@ -12,9 +12,9 @@ const EditProfile = () => {
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("");
   const [about, setAbout] = useState("");
-  const dispatch = useDispatch();
   const [showToast, setShowToast] = useState(false);
   const [error, setError] = useState("");
+  const dispatch = useDispatch();
 
   const saveProfile = async () => {
     try {
@@ -151,7 +151,8 @@ const EditProfile = () => {
 
             {/* Preview column (full width on mobile, 1/3 on desktop) */}
             <div>
-              <div className="sticky top-6">
+              
+              <div className="sticky top-6 [&_.card-actions]:hidden">
                 <UserCard
                   user={{ firstName, lastName, photoURL, age, gender, about }}
                 />
