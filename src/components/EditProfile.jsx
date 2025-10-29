@@ -47,7 +47,7 @@ const EditProfile = () => {
       setTimeout(() => setShowToast(false), 3000);
     }
   };
-console.log(error)
+
   useEffect(() => {
     // placeholder if you want to fetch initial profile on mount
   }, []);

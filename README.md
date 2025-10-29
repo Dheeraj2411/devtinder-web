@@ -49,3 +49,32 @@ Router=/profile =>Profile
   - in browserroute call <rotutes/><rotutes/>
     - in routes call route for giving path and element <Route></Route>(add many parent route)
       - Add chlid router (add one or more children)
+
+# Deployment
+
+- Signup on AWS
+- Launch instance
+- chmod 400<secret>.pem
+- "ssh -i "devTinder.pem" ubuntu@ec2-13-51-168-100.eu-north-1.compute.amazonaws.com
+- install node version same as on pc running
+- install npm version same as on pc
+- Clone the git repositories on AWS server
+- Frotened
+  - npm install ->dependncies install
+  - npm run build
+  - sudo apt update
+  - sudo apt install nginx
+  - sudo systemctl start nginx
+  - sudo systemctl enable nginx
+  - Copy code from dist -->devtinder-web--> /var/www/html/
+  - For copy dist folder --> sudo scp -r dist/* /var/www/html/
+  - Enablr port 80 of instance
+- Backend
+   - Upadte password
+   - allowed ec2 instance public IP  on mongoDB server
+   - Installed npm install pm2 -g
+   - pm2 start npm -- start
+   - pm2 logs
+   - pm2 flush <name of the processed>
+   - pm2 stop <name of the processed>
+   - pm2 delete <name of the processed>
